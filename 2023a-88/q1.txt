@@ -1,0 +1,55 @@
+א. 
+1.הקוד לא יתקמפ משום שA עלול זרוק שגיאה בעת יצירת הבנאי של B, לכן נדרש גם הוסיף throws ב-B וגם לעטוף את הקוד של new B() w/ try/catch block.
+2. הקוד לא יהיה תקין, מכיוון שמחלקה ללא רמת גישה תיהיה זמינה אך ורק באותו הPACKAGE, אזי נדרש להוסיף את הPACKAGE גם במחלקה של B, כנ"ל לגבי גישה למשתנה שהוא PROTECTED.
+ג.
+1. הקוד תקין וידפיס
+ A service hello1
+B constructor
+A Service
+מכיוון שהגישה למשתני המחלקה הם ע"פ הטיפוס הסטטי + המחלקה שממנה קוראים למצביע היא סטטית (אין קישור דינאמי)
+2.
+הקוד לא יתקמפל, מכיוון שיש שני מחלקות service והקומפילר לא ידע למי מהן לגשת.
+
+3.
+הקוד לא יתקמפל, מכיוון שיש שני מחלקות service והקומפילר לא ידע למי מהן לגשת.
+4. הקוד יתקמפל, כי כעת יש קישור דינאמי אזי יפנה למחקה סרויס שבB, ואז יודפס:
+B Service hello1
+B constructor
+B service
+
+ג. 
+public class WorkTest{
+    public void work(Worker t) {
+        try{
+            t.action();
+            if(t instanceof TypeA) {
+                ((TypeA)t).actionA();
+            }
+            if(t instanceof TypeB) {
+                ((TypeB)t).actionB();
+            }
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+}
+
+
+2.
+Worker w = new TypeB(){
+    public void action() throws Exception {
+        System.out.println("ACTION");
+        // if there is any code here that might throw an exception, you should either catch it or let it propagate up.
+    }
+
+    public void actionA(){
+        System.out.println("ACTION A");
+    }
+
+    public void actionB(){
+        System.out.println("ACTION B");
+    }
+};
+
+
+
