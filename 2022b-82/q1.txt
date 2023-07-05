@@ -1,0 +1,50 @@
+א.
+1)
+הקוד לא תקין, בבנאי של Code יש throws, אזי נדרש לעטוף את הבנאי בtry catch.
+2)
+הקוד לא תקין, ממספר סיבות
+ראשית לא קיים בנאי ריק בCode, אזי this("xyz") לא עובד, אם רוצים להשתמש במתודה של האב נדרש לשנות את השורה הזו לsuper("xyz"), ולעטוף בtry catch.
+בנוסף, נדרש לעטוף את super.s=s בtry catch מכייון שהבנאי של CODE זורק אקסשפן.
+
+        public SubCode() throws Exception{
+            super("xyz");
+        }
+
+public SubCode(String s)
+try{
+super(s)
+}
+catch{
+error
+}
+data = s.toCharArray();
+
+ב.
+1.
+Code encode
+avaj
+2.
+שגיאת ריצה, לא ניתן להפוך את mycode לsubcode (אב לא יכול להפוך לבן)
+3.
+שגיאת קומפליציה, מכיוון שreEncode לא קיימת בCode.
+
+ג.
+protected static int id = 0;
+try{
+if(id >= 10)
+id++
+}catch(Exception err)
+throw new Exception();
+
+finally {
+            super.finalize();
+        }
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,41 @@
+א
+1.
+קטע הקוד תקין, לאחר קריאה לכל ההוראת, קטע הקוד ידפיס
+a equals b false
+b equals a true
+משום שעבור a.equals(b) הקומפיילר יקרא לEQUALS שנמצא בCLASS של OBJECT.
+2. הקוד לא תקין, מכיוון שבa1 לחלק הסטטי אין את apply(int n) ואת getNum מכיוון שהם לא ממומשים בממשק, אם רוצים לתקן את הקוד נדרש להוסיף את ההעמסה:
+public void apply(int n)
+public int getNum
+
+ב
+1.
+הקוד תקין, ידפיס:
+a equals b false
+b equals a false
+2.
+הקוד תקין וידפיס 
+a1=abc1
+a1=abc2
+a1=abc3
+
+ג.
+public class Data2 extends Data{
+private int num = 0;
+
+public void Data2(int num) throws IllegealValue{
+if(num > 100 || num < 0)
+throw new IllegealValue;
+this.num = num
+}
+... //בנוסף יש להוסיף את את הפונקציות getNum וApply ריק, אחרת בקריאה לפונקציות האלו, הקומפיילר יגש אל ערך הnum שיש בData.
+}
+
+public static void main(String[] args){
+try{
+Data2 data = new Data2(7)
+System.out.print("num =" + data.getNum)
+}catch(IllegalValue err)
+System.out.print("Entered invalid value")
+}
+}
