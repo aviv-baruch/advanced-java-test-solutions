@@ -1,67 +1,73 @@
+import javafx.*;
 
-import java.util.*;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.util.*
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-
-public class NumberMatrixController {
+public class ImageDisplayController {
     @FXML
-    private GridPane gridPane;
+    private ImageView imageView;
 
     @FXML
-    private Button finalButton;
+    private Text imageTitle;
 
-    private final int SIZE = 5;
-    private final int TOTAL_CARDS = 25;
-    private final int[] SCORES = { 0, 100, 200, 300, 400 };
+    @FXML
+    private Button next;
 
-    private Button[][] btnMatrix = new Button[SIZE][SIZE];
-    private int[][] valuesMatrix = new int[SIZE][SIZE];
-    private int sum;
-    private int pressedCounter;
+    @FXML
+    private Button jump;
+
+    private int curIndex = 0;
+    private int totalImages;
 
     public void initialize() {
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                btnMatrix[i][j] = new Button(Integer.toString(""));
-                valuesMatrix[i][j] = SCORES[(int) Math.random() * SIZE + 1];
-
-                button.setOnAction(e -> {
-                    handleButtonClick(i, j);
-                });
-                gridPane.add(btnMatrix[i][j], j, i); // Note: 'j' is the column index, 'i' is the row index
-            }
+        try{
+        File imageDir = new File(getClass().getResource(".").toURI());
+        totalImages = (int) Arrays.stream(imageDir.listFiles())
+                .filter(file -> file.getName().endsWith(".gif"))
+                .count();
+        }catch(Exception e){
+              System.out.print(e);
+              totalImages = 0;
         }
+        next.setOnAction(event -> clickedNext());
+        jump.setOnAction(event -> jumpToImage());
+        loadAndDisplayImage(curIndex);
+    }
 
-        finalButton.setOnAction(e -> {
-            resetGame();
+    private void loadAndDisplayImage(int imageIndex) {
+        if (imageIndex >= 0 && imageIndex < totalImages) {
+            curIndex = imageIndex;
+            Image image = new Image(getClass().getResourceAsStream("pic" + (imageIndex + 1) + ".gif"));
+            imageView.setImage(image);
+            imageTitle.setText("Image " + (imageIndex + 1));
+        }
+    }
+
+    private void clickedNext() {
+        curIndex++;
+        if (curIndex == totalImages) {
+            curIndex = 0;
+        }
+        loadAndDisplayImage(curIndex);
+    }
+
+    private void jumpToImage() {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Jump to Image");
+        dialog.setContentText("Enter image number (1-" + totalImages + "):");
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(s -> {
+            try {
+                int imageNumber = Integer.parseInt(s);
+                loadAndDisplayImage(imageNumber - 1);
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Invalid input");
+                alert.setHeaderText(null);
+                alert.setContentText("Please enter a valid image number.");
+                alert.showAndWait();
+            }
         });
     }
-
-    public void handleButtonClick(int i, int j) {
-        btnMatrix[i][j].setText(Integer.toString(valuesMatrix[i][j]));
-        btnMatrix[i][j].setDisable(true);
-        sum += valuesMatrix[i][j];
-        pressedCounter++;
-
-        if (pressedCounter == TOTAL_CARDS || valuesMatrix[i][j] == 0) {
-            System.out.println("Game over, " + sum + " points have been collected");
-            resetGame();
-        }
-    }
-
-    public void resetGame() {
-        pressedCounter = 0;
-        sum = 0;
-
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                btnMatrix[i][j] = new Button(Integer.toString(""));
-                valuesMatrix[i][j] = SCORES[(int) Math.random() * SIZE + 1];
-                btnMatrix[i][j].setDisable(false);
-            }
-        }
-
-    }
-
 }

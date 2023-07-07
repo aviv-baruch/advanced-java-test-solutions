@@ -1,0 +1,55 @@
+א.
+1. 
+In A 3
+
+2.
+In A 3
+
+3.
+In a 2
+
+4.
+In B 10
+
+5.
+in C 6
+
+6.
+In C in A 3
+
+7.
+in C in A 2 
+
+8.
+In B 6
+
+9.
+לא תקין, קאסט לא חוקי אזי שגיאת זמן ריצה
+
+
+ב.
+1.
+public class Data implements Cloneable{
+...
+@Override
+protected Object clone() throws CloneNotSupportedException{
+Data cloneData = (Data) super.clone();
+for(String letter : this.list)
+cloneData.list.add(new String(letter));
+
+return cloneData;
+}
+}
+
+2.
+
+public class Group implements Cloneable {
+
+@Override
+protected Object clone() throws CloneNotSupportedException{
+Group clonedGroup = (Group) super.clone();
+this.data1 = (Data) this.data1.clone();
+this.data2 = (Data) this.data2.clone();
+
+return clonedGroup;
+}
