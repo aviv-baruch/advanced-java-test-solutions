@@ -1,0 +1,41 @@
+א.
+a.apply => num = num;
+b.apply => num+1
+first=false
+second=false
+
+ב.
+שגיאת קומפילציה, בb1 אין את calc
+
+2)
+א. הקוד תקין, אבל אי אפשר לדעת מה יודפס בגלל שאין את הערך של num... בעיקרון:
+ידפיס first=false
+ואז יכנס לelse if השני, ומשם ידפיס second= אם num=1 אזי ידפיס true, אחרת false.
+
+ב.
+result=ab
+result=a
+
+
+public class Conc2 extends Conc {
+    ...
+    public Conc2(int num) throws IllegalValue {
+        if(num > 100 || num < 0) {
+            throw new IllegalValue("Value exceeds range");
+        }
+        this.num = num;
+    }
+    
+    public static void main(String[] args) {
+        Conc2 c2 = null; // initialize c2
+        try {
+            c2 = new Conc2(99);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        if(c2 != null) {
+            System.out.println(c2.getNum());
+        }
+    }
+}

@@ -1,0 +1,68 @@
+א.
+public class Building implements Comparable<Building>{
+public int compareTo(Building o){
+if(o.getArea() < this.getArea())
+	return 1;
+if(o.getAera() == this.getArea())
+return 0;
+
+return 1;
+}
+}
+
+ב.
+public class Cinema extends Building implements Comparable<Object>{
+private int seats;
+public Cinema(int seats, double length, double width, double floors){
+super(length, width, floors);
+this.seats = seats;
+}
+
+public int compareTo(Object obj) throws CinemaException{
+
+
+	if(!(o instanceof Cinema)
+		throw new CinemaException("Not instance of cinema");
+ 	Cinema otherCinema = (Cinema) o;
+	if(this.seats>o.getSeats())
+		return 1;
+	if(this.seats == o.getSeats())
+		return 0
+	return -1;
+}  
+
+public int getSeats(){
+	return this.seats();
+}
+}
+
+ג.
+class Anotherclass implements Compareable<Building>{
+...
+public Cinema getHighestSeatsCount(Building[] arr){
+if(arr.length() == 0)
+return null;
+Cinema highestSeatsCinema = arr[0]
+for(Building bld : arr){
+	if(bld instanceof Cinema){
+		Cinema c = (Cinema) bld;
+		if(bld.getSeats() > highestSeatsCinema.getSeats()){
+			highestSeatsCinema = bld;
+		}
+	}				
+}
+}
+
+
+ד.
+a.
+כן, עמ89 במדריך הלמידה, המתודה הלא מופשטת תקרא למתודה מופשטת אשר תממש את המתודה המופשטת, אלא אם כן היא מתודה מופשטת בעצמה.
+b.
+כן
+c.
+כן, אפשר להעביר כל אובייקט שיורש מהמחלקה המופשטת.
+d.
+לא, אם היא מחלקה מופשטת בעצמה אזי לא חייבת
+e.
+כן, המתודה שתופעל היא של המחלקה הקונקרטית
+
